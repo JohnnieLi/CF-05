@@ -15,7 +15,7 @@ public class StudentController {
 
     //list
     @GetMapping("/students")
-    public ResponseEntity<ResponseBody> getStudents(@RequestParam(required = false) Optional<Integer> page) {
+    public ResponseEntity<ResponseBody> getStudents(@RequestParam(required = false) Integer page) {
         Student student1 = new Student();
         student1.setAge(10);
         student1.setId(1);
@@ -36,7 +36,7 @@ public class StudentController {
         }else{
             message = "no page";
         }
-        ResponseBody responseBody = new ca.ucareer.computerfactory.ResponseBody<List<Student>>(students, message, null);
+        ResponseBody responseBody = new ResponseBody<List<Student>>(students, message, null);
         return ResponseEntity.ok(responseBody);
     }
 
@@ -47,7 +47,7 @@ public class StudentController {
         student1.setAge(10);
         student1.setId(id);
         student1.setName("A");
-        ResponseBody responseBody = new ca.ucareer.computerfactory.ResponseBody<Student>(student1, "test message", null);
+        ResponseBody<Student> responseBody = new ResponseBody<>(student1, "test message", null);
         return ResponseEntity.ok(responseBody);
     }
 
