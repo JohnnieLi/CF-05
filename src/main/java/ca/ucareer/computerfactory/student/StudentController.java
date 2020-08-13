@@ -26,7 +26,7 @@ public class StudentController {
         student2.setId(2);
         student2.setName("B");
 
-        List<Student> students = new ArrayList<>();
+        ArrayList<Student> students = new ArrayList<>();
         students.add(student1);
         students.add(student2);
 
@@ -53,31 +53,31 @@ public class StudentController {
 
     //create
     @PostMapping("/students")
-    public ResponseEntity<ca.ucareer.computerfactory.ResponseBody> createStudent(@RequestBody Student studentBody) {
+    public ResponseEntity<ResponseBody> createStudent(@RequestBody Student studentBody) {
         Student savedStudent = new Student();
         savedStudent.setName(studentBody.getName());
         savedStudent.setAge(studentBody.getAge());
         savedStudent.setId(100);
-        ca.ucareer.computerfactory.ResponseBody responseBody = new ResponseBody<Student>(savedStudent, "test message", null);
+        ResponseBody responseBody = new ResponseBody<Student>(savedStudent, "test message", null);
         return ResponseEntity.ok(responseBody);
     }
 
     //update
     @PostMapping("/students/{id}")
-    public ResponseEntity<ca.ucareer.computerfactory.ResponseBody> updateStudent(@PathVariable int id, @RequestBody Student studentBody) {
+    public ResponseEntity<ResponseBody> updateStudent(@PathVariable int id, @RequestBody Student studentBody) {
         Student savedStudent = new Student();
         savedStudent.setName(studentBody.getName());
         savedStudent.setAge(studentBody.getAge());
         savedStudent.setId(id);
-        ca.ucareer.computerfactory.ResponseBody responseBody = new ResponseBody<Student>(savedStudent, "updated", null);
+        ResponseBody responseBody = new ResponseBody<Student>(savedStudent, "updated", null);
         return ResponseEntity.ok(responseBody);
     }
 
 
     //delete
     @DeleteMapping("/students/{id}")
-    public ResponseEntity<ca.ucareer.computerfactory.ResponseBody> deleteStudent(@PathVariable int id) {
-        ca.ucareer.computerfactory.ResponseBody responseBody = new ResponseBody<Student>(null, "deleted successfully", null);
+    public ResponseEntity<ResponseBody> deleteStudent(@PathVariable int id) {
+        ResponseBody responseBody = new ResponseBody<Student>(null, "deleted successfully", null);
         return ResponseEntity.ok(responseBody);
     }
 }
