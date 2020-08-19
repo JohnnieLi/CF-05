@@ -9,7 +9,6 @@ import java.util.Iterator;
 import java.util.List;
 
 @Service
-
 public class DeviceService {
     public static Device findById(int id, ArrayList<Device> devices) {
         for(Device device : devices){
@@ -19,14 +18,10 @@ public class DeviceService {
         }
         return null;
     }
+
     public static void deleteDeviceById(int id, ArrayList<Device> devices) {
 
-        for (Iterator<Device> iterator = devices.iterator(); iterator.hasNext(); ) {
-            Device device = iterator.next();
-            if (device.getId() == id) {
-                iterator.remove();
-            }
-        }
+        devices.removeIf(device -> device.getId() == id);
     }
 
 }
