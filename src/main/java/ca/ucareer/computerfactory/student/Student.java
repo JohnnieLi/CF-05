@@ -1,10 +1,19 @@
 package ca.ucareer.computerfactory.student;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+
 public class Student {
+
 
     private int id;
     private int age;
     private String name;
+
+
+    public Student() {
+    }
 
     public int getId() {
         return id;
