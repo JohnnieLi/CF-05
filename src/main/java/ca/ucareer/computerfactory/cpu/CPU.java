@@ -13,7 +13,7 @@ import java.util.Date;
 public class CPU {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private int id;
 
     private String status;
 
@@ -41,7 +41,7 @@ public class CPU {
 
     }
 
-    public CPU(Long id, String status, String label, String description, Double price, String core, String speed, Date createdAt, Date modifiedAt) {
+    public CPU(int id, String status, String label, String description, Double price, String core, String speed, Date createdAt, Date modifiedAt) {
         this.id = id;
         this.status = status;
         this.label = label;
@@ -53,11 +53,11 @@ public class CPU {
         this.modifiedAt = modifiedAt;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

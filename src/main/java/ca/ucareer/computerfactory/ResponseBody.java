@@ -1,14 +1,14 @@
 package ca.ucareer.computerfactory;
 
-public class ResponseBody {
+public class ResponseBody<T> {
     private String message;
-    private String result;
+    private T result;
     private Error error;
 
     public ResponseBody(){
     }
 
-    public ResponseBody(String message, String result, Error error) {
+    public ResponseBody(String message, T result, Error error) {
         this.message = message;
         this.result = result;
         this.error = error;
@@ -22,11 +22,11 @@ public class ResponseBody {
         this.message = message;
     }
 
-    public String getResult() {
+    public T getResult() {
         return result;
     }
 
-    public void setResult(String result) {
+    public void setResult(T result) {
         this.result = result;
     }
 
