@@ -15,6 +15,7 @@ public class CPU {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
+
     private String status;
 
     private String label;

@@ -5,6 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ca.ucareer.computerfactory.ResponseBody;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/v1")
 public class CPUController {
@@ -13,29 +15,24 @@ public class CPUController {
 
     //List @PathVariables extract values from the URI path
     @GetMapping("/CPUs")
-    public ResponseEntity<ResponseBody> getCpus(@RequestBody CPU cpubody){
-
+    public ResponseEntity<ResponseBody> list(){
+        List<CPU> cpuBody = cpuService.getCpus();
+        ResponseBody responseBody = new ResponseBody("Retrieved Successfully", cpuBody, null);
         return ResponseEntity.ok(responseBody);
     }
 
     //Retrieve
     @GetMapping("CPUs/{id}")
     public ResponseEntity<ResponseBody> retrieveCpus(@PathVariable int id){
-        CPU cpu1 = new CPU();
-        cpu1.setId(id);
-        ResponseBody responseBody = new ResponseBody("Retrieved Successfully", cpu1, null)
+        CPU cpu1 = cpuService.retrieveCpu(id);
+        ResponseBody responseBody = new ResponseBody("Retrieved Successfully", cpu1, null);
         return ResponseEntity.ok(responseBody);
     }
 
     //Create
     @PostMapping("/CPUs")
     public ResponseEntity<ResponseBody> createCpus(@RequestBody CPU cpubody){
-        CPU savedCpu = new CPU();
-        savedCpu.setCore(cpubody.getCore());
-        savedCpu.setDescription(cpubody.getDescription());
-        savedCpu.setLabel(cpubody.getLabel());
-        savedCpu.setPrice(cpubody.getPrice());
-        savedCpu.setStatus(cpubody.getStatus());
+        CPU savedCpu = cpuService.createCpu(cpubody);
         ResponseBody responsebody = new ResponseBody("Test message", savedCpu, null);
         return ResponseEntity.ok(responsebody);
     }
@@ -43,13 +40,7 @@ public class CPUController {
     //Update
     @PostMapping("/CPUs/{id}")
     public ResponseEntity<ResponseBody> updateCpus(@PathVariable int id, @RequestBody CPU cpubody){
-        CPU savedCpu = new CPU();
-        savedCpu.setId(id);
-        savedCpu.setCore(cpubody.getCore());
-        savedCpu.setDescription(cpubody.getDescription());
-        savedCpu.setLabel(cpubody.getLabel());
-        savedCpu.setPrice(cpubody.getPrice());
-        savedCpu.setStatus(cpubody.getStatus());
+        CPU savedCpu = cpuService.updateCpu(cpubody, id);
         ResponseBody responsebody = new ResponseBody("Test message", savedCpu, null);
         return ResponseEntity.ok(responsebody);
     }
@@ -58,8 +49,14 @@ public class CPUController {
     //Delete
     @DeleteMapping("CPUs/{id}")
     public ResponseEntity<ResponseBody> deleteCpus(@PathVariable int id){
-        ResponseBody responsebody = new ResponseBody("CPU deleted", null, null);
-        return ResponseEntity.ok(responsebody);
+        boolean foundCpu = cpuService.deleteCpu(id);
+        if (foundCpu == true) {
+            ResponseBody responsebody = new ResponseBody("CPU deleted", null, null);
+            return ResponseEntity.ok(responsebody);
+        }else{
+            ResponseBody responsebody = new ResponseBody("No such CPU", null, null);
+            return ResponseEntity.ok(responsebody);
+        }
     }
 
 
