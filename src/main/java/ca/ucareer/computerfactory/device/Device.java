@@ -1,4 +1,4 @@
-package ca.ucareer.computerfactory;
+package ca.ucareer.computerfactory.device;
 
 public class Device {
     private int id;
