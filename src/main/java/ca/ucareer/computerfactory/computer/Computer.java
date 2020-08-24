@@ -1,13 +1,14 @@
 package ca.ucareer.computerfactory.computer;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name = "Computer")
-public class ComputerModel {
+public class Computer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
@@ -23,14 +24,14 @@ public class ComputerModel {
     private Date createdAt;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @CreationTimestamp
+    @UpdateTimestamp
     private Date modifiedAt;
 
-    public ComputerModel(){
+    public Computer(){
 
     }
 
-    public ComputerModel(int id, String label, Double price, String type, Date createdAt, Date modifiedAt) {
+    public Computer(int id, String label, Double price, String type, Date createdAt, Date modifiedAt) {
         this.id = id;
         this.label = label;
         this.price = price;
