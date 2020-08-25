@@ -13,6 +13,7 @@ public class Graphic {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private double price;
+    private String label;
     private String brand;
 
     @Temporal(TemporalType.DATE)
@@ -27,9 +28,10 @@ public class Graphic {
 
     }
 
-    public Graphic(int id, double price, String brand, Date createdAt, Date modifiedAt) {
+    public Graphic(int id, double price, String label, String brand, Date createdAt, Date modifiedAt) {
         this.id = id;
         this.price = price;
+        this.label = label;
         this.brand = brand;
         this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;
@@ -57,6 +59,14 @@ public class Graphic {
 
     public void setBrand(String brand) {
         this.brand = brand;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 
     public Date getCreatedAt() {

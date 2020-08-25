@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/v1")
+@CrossOrigin("*")
 public class CPUController {
     @Autowired
     CPUService cpuService;
