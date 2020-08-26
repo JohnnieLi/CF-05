@@ -1,13 +1,11 @@
 package ca.ucareer.computerfactory.cpu;
 
 import ca.ucareer.computerfactory.ResponseBody;
-import ca.ucareer.computerfactory.device.Device;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.PostRemove;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -19,16 +17,16 @@ public class CPUController {
     CPUService cpuService;
 
     @GetMapping("/cpus")
-    public ResponseEntity<ca.ucareer.computerfactory.ResponseBody> getCPUList() {
+    public ResponseEntity<ResponseBody> getCPUList() {
         List<CPU> CPUList = cpuService.list();
         String finalMessage = "CPU list has been obtained";
-        ca.ucareer.computerfactory.ResponseBody responseBody = new ca.ucareer.computerfactory.ResponseBody<>(CPUList, finalMessage, null);
+        ResponseBody responseBody = new ResponseBody<>(CPUList, finalMessage, null);
         return ResponseEntity.ok(responseBody);
     }
 
     @GetMapping("/cpus/{id}")
-    public ResponseEntity<ca.ucareer.computerfactory.ResponseBody> getCPUById(@PathVariable int id) {
-        CPU CPUFound = cpuService.retrieve(id);
+    public ResponseEntity<ResponseBody> getCPUById(@PathVariable int id) {
+        CPU CPUFound = cpuService.find(id);
         String finalMessage = "";
         if (CPUFound != null){
             finalMessage = "CPU with id = " + id + " has been found.";
@@ -36,21 +34,21 @@ public class CPUController {
         else {
             finalMessage = "CPU with id = " + id + " does not exist.";
         }
-        ca.ucareer.computerfactory.ResponseBody responseBody = new ca.ucareer.computerfactory.ResponseBody<>(CPUFound, finalMessage, null);
+        ResponseBody responseBody = new ResponseBody<>(CPUFound, finalMessage, null);
         return ResponseEntity.ok(responseBody);
     }
 
     @PostMapping("/cpus")
-    public ResponseEntity<ca.ucareer.computerfactory.ResponseBody>creatCPU(@RequestBody CPU CPUBody){
+    public ResponseEntity<ResponseBody>creatCPU(@RequestBody CPU CPUBody){
         CPU CPUCreated =cpuService.create(CPUBody);
         String finalMessage = "New CPU has been created.";
-        ca.ucareer.computerfactory.ResponseBody responseBody = new ca.ucareer.computerfactory.ResponseBody<>(CPUCreated, finalMessage,null);
+        ResponseBody responseBody = new ResponseBody<>(CPUCreated, finalMessage,null);
         return ResponseEntity.ok(responseBody);
     }
 
     @PostMapping("/cpus/{id}")
-    public ResponseEntity<ca.ucareer.computerfactory.ResponseBody> updateById(@PathVariable int id, @RequestBody CPU CPUBody){
-        CPU CPUToUpdate = cpuService.retrieve(id);
+    public ResponseEntity<ResponseBody> updateById(@PathVariable int id, @RequestBody CPU CPUBody){
+        CPU CPUToUpdate = cpuService.find(id);
         String finalMessage = "";
         if (CPUToUpdate != null){
             CPUToUpdate = cpuService.update(id, CPUBody);
@@ -60,13 +58,13 @@ public class CPUController {
         else {
             finalMessage = "CPU with id = " + id + " does not exist.";
         }
-        ca.ucareer.computerfactory.ResponseBody responseBody = new ca.ucareer.computerfactory.ResponseBody<>(CPUToUpdate, finalMessage, null);
+        ResponseBody responseBody = new ResponseBody<>(CPUToUpdate, finalMessage, null);
         return ResponseEntity.ok(responseBody);
     }
 
     @DeleteMapping("cpus/{id}")
     public ResponseEntity<ResponseBody> deleteById(@PathVariable int id){
-        CPU CPUToDelete = cpuService.retrieve(id);
+        CPU CPUToDelete = cpuService.find(id);
         String finalMessage = "";
         if (CPUToDelete != null){
             cpuService.delete(id);
