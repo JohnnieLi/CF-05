@@ -16,7 +16,7 @@ public class GraphicCardController {
     GraphicCardService graphicCardService;
 
     @GetMapping("/graphic_cards")
-    public ResponseEntity<ResponseBody> list(){
+    public ResponseEntity<ResponseBody> listAllGraphicCards(){
         List<GraphicCard> graphicCardList = graphicCardService.list();
         String finalMessage = "Graphic card list has been obtained";
         ResponseBody responseBody = new ResponseBody<>(graphicCardList, finalMessage,null);
@@ -24,7 +24,7 @@ public class GraphicCardController {
     }
 
     @GetMapping("/graphic_cards/{id}")
-    public ResponseEntity<ResponseBody> getById(@PathVariable int id){
+    public ResponseEntity<ResponseBody> getGraphicCardById(@PathVariable int id){
         GraphicCard graphicCardFound = graphicCardService.find(id);
         String finalMessage = "";
         if (graphicCardFound != null){
@@ -38,7 +38,7 @@ public class GraphicCardController {
     }
 
     @PostMapping("/graphic_cards")
-    public ResponseEntity<ResponseBody>creatGraphicCard (@RequestBody GraphicCard graphicCardBody){
+    public ResponseEntity<ResponseBody>creatOneGraphicCard (@RequestBody GraphicCard graphicCardBody){
         GraphicCard graphicCardCreated = graphicCardService.create(graphicCardBody);
         String finalMessage = "New graphic card has been created.";
         ResponseBody responseBody = new ResponseBody<>(graphicCardCreated, finalMessage,null);
@@ -46,7 +46,7 @@ public class GraphicCardController {
     }
 
     @PostMapping("/graphic_cards/{id}")
-    public ResponseEntity<ResponseBody>updateGraphicCard (@PathVariable int id, @RequestBody GraphicCard graphicCardBody){
+    public ResponseEntity<ResponseBody>updateGraphicCardById (@PathVariable int id, @RequestBody GraphicCard graphicCardBody){
         GraphicCard graphicCardFound = graphicCardService.find(id);
         String finalMessage  = "";
         if (graphicCardFound != null){
@@ -62,18 +62,17 @@ public class GraphicCardController {
     }
 
     @DeleteMapping("//graphic_cards/{id}")
-    public ResponseEntity<ResponseBody> deletebyId (@PathVariable int id){
+    public ResponseEntity<ResponseBody> deleteOneGraphicCardById (@PathVariable int id){
         GraphicCard graphicCardToDelete = graphicCardService.find(id);
         String finalMessage = "";
         if (graphicCardToDelete != null){
             graphicCardService.delete(id);
             finalMessage = "Graphic Card with id = " + id + " has been deleted";
-
         }
         else {
             finalMessage = "Graphic Card with id = " + id + " does not exist.";
         }
-        ResponseBody responseBody = new ResponseBody<>(graphicCardService, finalMessage, null);
+        ResponseBody responseBody = new ResponseBody<>(graphicCardToDelete, finalMessage, null);
         return ResponseEntity.ok(responseBody);
 
     }

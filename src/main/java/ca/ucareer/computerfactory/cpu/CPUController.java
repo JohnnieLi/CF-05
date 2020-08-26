@@ -26,7 +26,7 @@ public class CPUController {
 
     @GetMapping("/cpus/{id}")
     public ResponseEntity<ResponseBody> getCPUById(@PathVariable int id) {
-        CPU CPUFound = cpuService.find(id);
+        CPU CPUFound = cpuService.findById(id);
         String finalMessage = "";
         if (CPUFound != null){
             finalMessage = "CPU with id = " + id + " has been found.";
@@ -47,8 +47,8 @@ public class CPUController {
     }
 
     @PostMapping("/cpus/{id}")
-    public ResponseEntity<ResponseBody> updateById(@PathVariable int id, @RequestBody CPU CPUBody){
-        CPU CPUToUpdate = cpuService.find(id);
+    public ResponseEntity<ResponseBody> updateCPUById(@PathVariable int id, @RequestBody CPU CPUBody){
+        CPU CPUToUpdate = cpuService.findById(id);
         String finalMessage = "";
         if (CPUToUpdate != null){
             CPUToUpdate = cpuService.update(id, CPUBody);
@@ -63,8 +63,8 @@ public class CPUController {
     }
 
     @DeleteMapping("cpus/{id}")
-    public ResponseEntity<ResponseBody> deleteById(@PathVariable int id){
-        CPU CPUToDelete = cpuService.find(id);
+    public ResponseEntity<ResponseBody> deleteCPUById(@PathVariable int id){
+        CPU CPUToDelete = cpuService.findById(id);
         String finalMessage = "";
         if (CPUToDelete != null){
             cpuService.delete(id);

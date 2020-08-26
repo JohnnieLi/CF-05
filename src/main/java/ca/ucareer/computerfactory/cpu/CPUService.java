@@ -17,9 +17,10 @@ public class CPUService {
     }
 
     //Get one CPU
-    CPU find(int id) {
+    CPU findById(int id) {
         return cpuRepository.findById(id).orElse(null);
     }
+
     //Creat one CPU
     CPU create(CPU cpuBody) {
         CPU savedCPU = new CPU();
@@ -54,7 +55,6 @@ public class CPUService {
             foundCPU.setSpeed(cpuBody.getSpeed());
         }
         return cpuRepository.save(foundCPU);
-
     }
 
     //Delete one CPU
