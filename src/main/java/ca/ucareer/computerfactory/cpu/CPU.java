@@ -42,6 +42,7 @@ public class CPU {
     @Column(name = "modified_at")
     @LastModifiedDate
     @UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
     private Date modifiedAt;
 
     public CPU() {

@@ -33,6 +33,7 @@ public class GraphicCard {
     @Column(name = "modified_at")
     @LastModifiedDate
     @UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
     private Date modifiedAt;
 
     public GraphicCard() {
