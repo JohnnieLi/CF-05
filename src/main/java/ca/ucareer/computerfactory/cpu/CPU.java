@@ -1,5 +1,7 @@
 package ca.ucareer.computerfactory.cpu;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -14,7 +16,7 @@ public class CPU {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "cpu_name")
+    @Column(name = "cpu_status")
     private String status;
 
     @Column(name = "cpu_label")
@@ -34,16 +36,18 @@ public class CPU {
 
     @Column(name = "created_at")
     @CreatedDate
+    @CreationTimestamp
     private Date createdAt;
 
     @Column(name = "modified_at")
     @LastModifiedDate
+    @UpdateTimestamp
     private Date modifiedAt;
 
     public CPU() {
     }
 
-    public CPU(int id, String status, String label, String description, int price, String core, float speed, Date createdAt, Date modifiedAt) {
+    public CPU(Integer id, String status, String label, String description, Integer price, String core, Float speed, Date createdAt, Date modifiedAt) {
         this.id = id;
         this.status = status;
         this.label = label;
@@ -127,3 +131,4 @@ public class CPU {
         this.modifiedAt = modifiedAt;
     }
 }
+
