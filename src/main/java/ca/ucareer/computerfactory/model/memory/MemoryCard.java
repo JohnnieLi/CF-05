@@ -31,7 +31,7 @@ public class MemoryCard {
     @CreatedBy
     private String created_by;
 
-    public MemoryCard(Integer id) {
+    public MemoryCard() {
     }
 
     public MemoryCard(Integer id, String label, double price, Date created_at, Date modified_at, String created_by) {

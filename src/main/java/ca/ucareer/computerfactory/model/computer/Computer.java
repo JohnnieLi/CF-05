@@ -36,7 +36,7 @@ public class Computer {
 
     private String created_by;
 
-    public Computer(Integer id) {
+    public Computer() {
     }
 
     public Computer(Integer id, double price, CPU cpu, GraphicCard graphicCard, MemoryCard memoryCard, Date modified_at, Date created_at, String created_by) {

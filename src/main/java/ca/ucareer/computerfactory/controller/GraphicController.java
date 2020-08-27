@@ -16,7 +16,7 @@ public class GraphicController {
     @Autowired
     GraphicService graphicService;
 
-    @GetMapping("/graphiccards")
+    @GetMapping("/graphic_cards")
     public ResponseEntity<ResponseBody> listGraphic(){
         List<GraphicCard> listGraphic = graphicService.listGraphic();
         ResponseBody<List> responseBody = new ResponseBody(listGraphic,
@@ -24,20 +24,20 @@ public class GraphicController {
         return ResponseEntity.ok(responseBody);
     }
 
-    @GetMapping("graphiccards/{id}")
+    @GetMapping("graphic_cards/{id}")
     public ResponseEntity<ResponseBody> retrieveGraphic(@PathVariable("id") Integer id){
         ResponseBody<GraphicCard> responseBody = new ResponseBody(graphicService.retrieve(id), "get it", null);
         return ResponseEntity.ok(responseBody);
     }
 
-    @PostMapping("graphiccards")
+    @PostMapping("graphic_cards")
     public ResponseEntity<ResponseBody> createGraphic(@RequestBody GraphicCard newGraphic){
         ResponseBody<GraphicCard> requestBody = new ResponseBody(graphicService.create(newGraphic),
                 "create one", null);
         return ResponseEntity.ok(requestBody);
     }
 
-    @PostMapping("graphiccards/{id}")
+    @PostMapping("graphic_cards/{id}")
     public ResponseEntity<ResponseBody> updateGraphic(@RequestBody GraphicCard updatedGraphic,
                                                       @PathVariable("id") Integer id){
         updatedGraphic.setId(id);
@@ -46,7 +46,7 @@ public class GraphicController {
         return ResponseEntity.ok(responseBody);
     }
 
-    @DeleteMapping("graphiccards/{id}")
+    @DeleteMapping("graphic_cards/{id}")
     public ResponseEntity<ResponseBody> deleteGraphic(@PathVariable("id") Integer id){
         ResponseBody<GraphicCard> responseBody = new ResponseBody(graphicService.deleteGraphic(id),
                 "delete it", null);
