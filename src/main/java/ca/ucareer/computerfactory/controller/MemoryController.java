@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/v1")
+@CrossOrigin(origins = "*")
 public class MemoryController {
 
     @Autowired
