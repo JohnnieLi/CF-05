@@ -18,7 +18,7 @@ public class MemoryCard {
     private String label;
 
     @Column(nullable = true)
-    private double price;
+    private double price = 0.0;
 
     @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp

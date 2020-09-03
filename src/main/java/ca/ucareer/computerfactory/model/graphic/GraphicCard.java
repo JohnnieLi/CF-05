@@ -18,7 +18,7 @@ public class GraphicCard {
     private String label;
 
     @Column(nullable = true)
-    private double price;
+    private double price = 0;
 
     private String brand;
 

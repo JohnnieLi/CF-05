@@ -33,8 +33,12 @@ public class MemoryService {
     public MemoryCard updateMemory(MemoryCard memoryBaby){
         MemoryCard updatingMemory = memoryRepository.findById(memoryBaby.getId()).orElse(null);
         if(updatingMemory != null){
-            updatingMemory.setLabel(memoryBaby.getLabel());
-            updatingMemory.setPrice(memoryBaby.getPrice());
+            if(memoryBaby.getLabel() != null){
+                updatingMemory.setLabel(memoryBaby.getLabel());
+            }
+            if(memoryBaby.getPrice() != 0){
+                updatingMemory.setPrice(memoryBaby.getPrice());
+            }
             return memoryRepository.save(updatingMemory);
         }
         else return null;

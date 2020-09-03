@@ -45,7 +45,7 @@ public class CPUService {
                 updatingCPU.setCore(cpuBaby.getCore());
             }
             if(cpuBaby.getDescription() != null){
-                updatingCPU.setCore(cpuBaby.getCore());
+                updatingCPU.setDescription(cpuBaby.getDescription());
             }
             if(cpuBaby.getLabel() != null){
                 updatingCPU.setLabel(cpuBaby.getLabel());

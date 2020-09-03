@@ -25,9 +25,9 @@ public class CPU {
     private String description;
 
     @Column(nullable = true)
-    private double price;
+    private double price = 0;
 
-    private int core;
+    private int core = 0;
 
     private String speed;
 
