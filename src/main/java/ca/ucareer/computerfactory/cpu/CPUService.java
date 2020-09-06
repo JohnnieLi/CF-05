@@ -42,7 +42,6 @@ public class CPUService {
             savedCpu.setPrice(cpubody.getPrice());
             savedCpu.setStatus(cpubody.getStatus());
             return cpuRepository.save(savedCpu);
-
         }else{
             return null;
         }
