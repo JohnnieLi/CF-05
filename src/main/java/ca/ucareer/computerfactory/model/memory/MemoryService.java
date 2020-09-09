@@ -11,13 +11,16 @@ public class MemoryService {
     @Autowired
     MemoryRepository memoryRepository;
 
-    public MemoryCard createMemory(MemoryCard memoryBaby){
+    public MemoryCard createMemory(MemoryCard memoryBaby, String userId){
         MemoryCard memoryCard = new MemoryCard();
         if(memoryBaby.getLabel() != null){
             memoryCard.setLabel(memoryBaby.getLabel());
         }
         if(memoryBaby.getPrice() != 0){
             memoryCard.setPrice(memoryBaby.getPrice());
+        }
+        if(userId != null){
+            memoryCard.setCreated_by(userId);
         }
         return memoryRepository.save(memoryCard);
     }
@@ -30,7 +33,7 @@ public class MemoryService {
         return memoryRepository.findById(id).orElse(null);
     }
 
-    public MemoryCard updateMemory(MemoryCard memoryBaby){
+    public MemoryCard updateMemory(MemoryCard memoryBaby, String userId){
         MemoryCard updatingMemory = memoryRepository.findById(memoryBaby.getId()).orElse(null);
         if(updatingMemory != null){
             if(memoryBaby.getLabel() != null){
@@ -38,6 +41,9 @@ public class MemoryService {
             }
             if(memoryBaby.getPrice() != 0){
                 updatingMemory.setPrice(memoryBaby.getPrice());
+            }
+            if(userId != null){
+                updatingMemory.setCreated_by(userId);
             }
             return memoryRepository.save(updatingMemory);
         }

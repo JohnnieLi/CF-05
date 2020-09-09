@@ -28,7 +28,7 @@ public class MemoryCard {
     @UpdateTimestamp
     private Date modified_at;
 
-    @CreatedBy
+//    @CreatedBy
     private String created_by;
 
     public MemoryCard() {

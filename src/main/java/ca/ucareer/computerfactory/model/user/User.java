@@ -4,7 +4,9 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedBy;
 
+import javax.annotation.Generated;
 import javax.persistence.*;
+import java.sql.Time;
 import java.util.Date;
 
 @Entity
@@ -12,24 +14,25 @@ import java.util.Date;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(unique = true)
     private String username;
 
     private String password;
 
+    private String status;
+
     @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
-    private Date created_at;
+    private Date create_at;
 
     @Temporal(TemporalType.TIMESTAMP)
     @UpdateTimestamp
     private Date modified_at;
 
     @CreatedBy
-    private String created_by;
+    private String modified_by;
 
     public User() {
     }
@@ -46,7 +49,6 @@ public class User {
         return username;
     }
 
-
     public void setUsername(String username) {
         this.username = username;
     }
@@ -59,12 +61,20 @@ public class User {
         this.password = password;
     }
 
-    public Date getCreated_at() {
-        return created_at;
+    public String getStatus() {
+        return status;
     }
 
-    public void setCreated_at(Date created_at) {
-        this.created_at = created_at;
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Date getCreate_at() {
+        return create_at;
+    }
+
+    public void setCreate_at(Date create_at) {
+        this.create_at = create_at;
     }
 
     public Date getModified_at() {
@@ -75,11 +85,11 @@ public class User {
         this.modified_at = modified_at;
     }
 
-    public String getCreated_by() {
-        return created_by;
+    public String getModified_by() {
+        return modified_by;
     }
 
-    public void setCreated_by(String created_by) {
-        this.created_by = created_by;
+    public void setModified_by(String modified_by) {
+        this.modified_by = modified_by;
     }
 }

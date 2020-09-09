@@ -7,11 +7,11 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer>{
+/** do not forget <User, Integer>>*/
+public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Query("select u from User u where u.username = :user")
-    /** tips: user Optional<User> here then you can use .orElse() in UserService */
-    public Optional<User> findByUsername(@Param("user") String username);
+    public Optional<User> findUserByUsername(@Param("user") String username);
+
 }
