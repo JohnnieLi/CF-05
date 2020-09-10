@@ -15,6 +15,18 @@ public class UserService {
     private JWT jwt;
 
 
+
+    User findUser(String username) throws Exception{
+        User foundUser = userRepository.findUserByUsername(username).orElse(null);
+        if(foundUser == null){
+            throw new Exception("user not found");
+        }else{
+            return foundUser;
+        }
+    }
+
+
+
     User createUser(User userBody) throws Exception{
         User foundUser = userRepository.findUserByUsername(userBody.getUsername()).orElse(null);
         if(foundUser == null){
