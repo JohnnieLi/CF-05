@@ -1,5 +1,7 @@
 package ca.ucareer.computerfactory.cpu;
 
+import ca.ucareer.computerfactory.core.JWT;
+import ca.ucareer.computerfactory.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +19,7 @@ public class CPUService {
     }
 
     //Retrieve a CPU with ID
-    CPU retrieveCpu(int id){
+    public CPU retrieveCpu(int id){
         return cpuRepository.findById(id).orElse(null);
     }
 
@@ -57,4 +59,6 @@ public class CPUService {
             return false;
         }
     }
+
+
 }

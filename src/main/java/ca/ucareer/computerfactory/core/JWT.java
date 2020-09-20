@@ -21,6 +21,7 @@ public class JWT {
     @Value("${ucareer.jwt.token}")
     String plainSecret;
 
+    //Encode plainsecret if plainsecret is provided
     private String generateEncodedSecret(String plainSecret) throws IllegalAccessException {
         if (StringUtils.isEmpty(plainSecret)){
             throw new IllegalAccessException("JWT secret cannot be null or emtpy");
@@ -28,20 +29,22 @@ public class JWT {
         return Base64.getEncoder().encodeToString(this.plainSecret.getBytes());
     }
 
+    //Create json web token
     public String creatLoginToken(String username) throws IllegalAccessException {
         Date now = new Date();
         Long expireInMillis = TimeUnit.HOURS.toMillis(expireHours);
         Date expireAt = new Date(expireInMillis + now.getTime());
-        String encodeSecret = generateEncodedSecret(this.plainSecret);
-        return Jwts.builder()
+        String encodedSecret = generateEncodedSecret(this.plainSecret); //Call the generate function to get encoded string
+        return Jwts.builder() //Setup the JWT claims
                 .setId(UUID.randomUUID().toString())
                 .setSubject(username)
                 .setIssuedAt(now)
                 .setExpiration(expireAt)
-                .signWith(SignatureAlgorithm.HS256, encodeSecret)
+                .signWith(SignatureAlgorithm.HS256, encodedSecret)
                 .compact();
     }
 
+    //Validate login token
     public String verifyLoginToken(String token){
         try{
             Claims claims = Jwts.parser()
@@ -53,5 +56,4 @@ public class JWT {
             return null;
         }
     }
-
 }

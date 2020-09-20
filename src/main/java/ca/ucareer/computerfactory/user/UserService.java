@@ -1,18 +1,24 @@
 package ca.ucareer.computerfactory.user;
 
 import ca.ucareer.computerfactory.core.JWT;
+import ca.ucareer.computerfactory.cpu.CPUService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
 
+    public Object verify;
     @Autowired
     UserRepository userRepository;
 
     @Autowired
     JWT jwt;
 
+    @Autowired
+    CPUService cpuService;
+
+    //Create a function to handle registration
     User createUser(User userBody) throws Exception{
         User foundUser = userRepository.findUserByUsername(userBody.getUsername()).orElse(null);
         if(foundUser == null){
@@ -26,6 +32,7 @@ public class UserService {
         }
     }
 
+    //Ask users to do authentication. If pass, return json web token back.
     String userLogin(LoginRequestBody userBody) throws Exception{
         User foundUser = userRepository.findUserByUsername(userBody.getUsername()).orElse(null);
         if(foundUser != null){
@@ -39,4 +46,20 @@ public class UserService {
         }
     }
 
+    User findUser(String username) throws Exception{
+        User foundUser = userRepository.findUserByUsername(username).orElse(null);
+        if(foundUser!=null){
+            return foundUser;
+        }else{
+            throw new Exception("No such a user");
+        }
+    }
+
+    String verifiedCpu(String token) throws Exception{
+        if(jwt.verifyLoginToken(token) != null){
+            return jwt.verifyLoginToken(token);
+        }else{
+            throw new Exception("Something is wrong");
+        }
+    }
 }
