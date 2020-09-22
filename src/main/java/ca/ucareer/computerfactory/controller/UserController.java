@@ -1,5 +1,6 @@
 package ca.ucareer.computerfactory.controller;
 
+import ca.ucareer.computerfactory.core.JWT;
 import ca.ucareer.computerfactory.model.loginrequest.LoginRequestBody;
 import ca.ucareer.computerfactory.model.user.User;
 import ca.ucareer.computerfactory.model.user.UserService;
@@ -15,6 +16,9 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    JWT jwt;
 
     @PostMapping("/register")
     public ResponseEntity<ResponseBody> createUser(@RequestBody User userBody){
@@ -36,6 +40,59 @@ public class UserController {
         catch(Exception exception){
             ResponseBody responseBody = new ResponseBody("",
                     exception.getMessage(), exception);
+            return ResponseEntity.ok(responseBody);
+        }
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<ResponseBody>
+    checkUserInfo(@RequestHeader("token") String token){
+        try{
+            String username = jwt.verifyToken(token);
+            if(username != null){
+                User me = userService.retrieveUser(username);
+                ResponseBody<User> responseBody =
+                        new ResponseBody(
+                                me,
+                                "find out my information", null);
+                return ResponseEntity.ok(responseBody);
+            }
+            else{
+                ResponseBody responseBody =
+                        new ResponseBody(null, "no username", null);
+                return ResponseEntity.ok(responseBody);
+            }
+        }
+        catch (Exception e){
+            ResponseBody responseBody =
+                    new ResponseBody(null, e.getMessage(), null);
+            return ResponseEntity.ok(responseBody);
+        }
+    }
+
+
+    @PostMapping("/me")
+    public ResponseEntity<ResponseBody>
+    updateUserInfo(@RequestHeader("token") String token,
+                   @RequestBody String newPassword){
+        try{
+            String username = jwt.verifyToken(token);
+            if(username != null){
+                ResponseBody responseBody =
+                        new ResponseBody(
+                                userService.updateUser(newPassword, username),
+                                "update me", null);
+                return ResponseEntity.ok(responseBody);
+            }
+            else{
+                ResponseBody responseBody =
+                        new ResponseBody(null, "no username", null);
+                return ResponseEntity.ok(responseBody);
+            }
+        }
+        catch (Exception e){
+            ResponseBody responseBody =
+                    new ResponseBody(null, e.getMessage(), null);
             return ResponseEntity.ok(responseBody);
         }
     }

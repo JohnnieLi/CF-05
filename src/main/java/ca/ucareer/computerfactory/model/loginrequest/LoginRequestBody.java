@@ -5,19 +5,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class LoginRequestBody {
 
-    private Integer id;
+    private String username;
 
     private String password;
 
     public LoginRequestBody() {
     }
 
-    public Integer getId() {
-        return id;
+    public String getUsername() {
+        return username;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {

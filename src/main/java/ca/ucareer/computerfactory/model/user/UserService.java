@@ -29,18 +29,18 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User retrieveUser(Integer id){
-        return userRepository.findById(id).orElse(null);
+    public User retrieveUser(String username){
+
+        return userRepository.findUserByUsername(username).orElse(null);
     }
 
-    public User updateUser(User userBody){
-        User updatedUser = userRepository.findById(userBody.getId())
+    public User updateUser(String password, String username){
+        User updatedUser =
+                userRepository.findUserByUsername(username)
                 .orElse(null);
         if(updatedUser != null){
-            updatedUser.setStatus("registered");
-            updatedUser.setUsername(userBody.getUsername());
-            updatedUser.setPassword(userBody.getPassword());
-
+            updatedUser.setStatus("modified password");
+            updatedUser.setPassword(password);
             return userRepository.save(updatedUser);
         }
         else return null;
@@ -71,11 +71,11 @@ public class UserService {
     public String createToken (LoginRequestBody loginRequestBody) throws Exception{
         String loginPassword = loginRequestBody.getPassword();
         User targetUser = userRepository
-                .findById(loginRequestBody.getId()).orElse(null);
+                .findUserByUsername(loginRequestBody.getUsername()).orElse(null);
         if(targetUser != null){
             if(loginPassword.equals(targetUser.getPassword())){
                 // create token
-                return jwt.createToken(loginRequestBody.getId());
+                return jwt.createToken(loginRequestBody.getUsername());
 
             }
             else{

@@ -12,9 +12,12 @@ public class GraphicService {
     @Autowired
     GraphicRepository graphicRepository;
 
-    public GraphicCard create(GraphicCard graphicBaby){
+    public GraphicCard create(GraphicCard graphicBaby, String username){
 
         GraphicCard savingGraphic = new GraphicCard();
+        if(username != null){
+            savingGraphic.setCreated_by(username);
+        }
         savingGraphic.setBrand(graphicBaby.getBrand());
         savingGraphic.setLabel(graphicBaby.getLabel());
         savingGraphic.setPrice(graphicBaby.getPrice());
@@ -22,17 +25,24 @@ public class GraphicService {
 
     }
 
-    public GraphicCard retrieve(Integer id){
-        return graphicRepository.findById(id).orElse(null);
+    public GraphicCard retrieve(Integer id, String username){
+
+        return graphicRepository.findByIdAndUsername(id, username).orElse(null);
     }
 
-    public List<GraphicCard> listGraphic(){
-        return graphicRepository.findAll();
+    public List<GraphicCard> listGraphic(String username){
+        return graphicRepository.findAllByUsername(username).orElse(null);
     }
 
-    public GraphicCard updateGraphic(GraphicCard graphicBaby){
-        GraphicCard updatingGraphic = graphicRepository.findById(graphicBaby.getId()).orElse(null);
+    public GraphicCard updateGraphic(GraphicCard graphicBaby, String username){
+        GraphicCard updatingGraphic =
+                graphicRepository.
+                        findByIdAndUsername(graphicBaby.getId(), username)
+                        .orElse(null);
         if (updatingGraphic != null){
+            if(username != null){
+                updatingGraphic.setCreated_by(username);
+            }
             if(graphicBaby.getBrand() != null){
                 updatingGraphic.setBrand(graphicBaby.getBrand());
             }
@@ -47,8 +57,11 @@ public class GraphicService {
         else return null;
     }
 
-    public GraphicCard deleteGraphic(Integer id){
-        GraphicCard findGraphic = graphicRepository.findById(id).orElse(null);
+    public GraphicCard deleteGraphic(Integer id, String username){
+        GraphicCard findGraphic =
+                graphicRepository
+                        .findByIdAndUsername(id, username)
+                        .orElse(null);
         if(findGraphic != null){
             GraphicCard deleteGraphic = new GraphicCard(findGraphic.getId(), findGraphic.getLabel(), findGraphic.getPrice(),
                     findGraphic.getBrand(), findGraphic.getModified_at(), findGraphic.getCreated_at(),

@@ -27,13 +27,13 @@ public class JWT {
                 .encodeToString(this.plainSecret.getBytes());
     }
 
-    public String createToken(Integer id){
+    public String createToken(String username){
         Date now = new Date();
         Date expiredAt = new Date(now.getTime()
                 + TimeUnit.HOURS.toMillis(this.expiration));
         return Jwts.builder()
                 .setId(UUID.randomUUID().toString())
-                .setSubject(id.toString())
+                .setSubject(username)
                 .setIssuedAt(now)
                 .setExpiration(expiredAt)
                 .signWith(SignatureAlgorithm.HS256, superSecret())
