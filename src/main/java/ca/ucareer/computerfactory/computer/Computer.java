@@ -1,22 +1,37 @@
-package ca.ucareer.computerfactory.cpu;
+package ca.ucareer.computerfactory.computer;
 
-import ca.ucareer.computerfactory.computer.Computer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import ca.ucareer.computerfactory.cpu.CPU;
+import ca.ucareer.computerfactory.memory_card.MemoryCard;
+import ca.ucareer.computerfactory.user.User;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 
-
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
-@Table(name="CPUs")
-public class CPU {
+@Table(name="computers")
+public class Computer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @OneToOne
+    @JoinColumn(name = "cpu_id")
+    private CPU cpu;
+
+
+    @OneToMany()
+    @JoinColumn(name="computer_id")
+    private List<MemoryCard> memoryCards = new ArrayList<>();
+
+
+    @ManyToMany
+    private List<User> users = new ArrayList<>();
 
     @Column(name="status_test")
     private String status;
@@ -24,12 +39,6 @@ public class CPU {
     private String label;
 
     private String description;
-
-    private int price = 0;
-
-    @OneToOne(mappedBy = "cpu")
-    @JsonIgnore
-    private Computer computer;
 
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
@@ -42,37 +51,32 @@ public class CPU {
     @UpdateTimestamp
     private Date modifiedAt;
 
-    private String band;
+    Computer(){}
 
-    public String getBand() {
-        return band;
+    public CPU getCpu() {
+        return cpu;
     }
 
-    public void setBand(String band) {
-        this.band = band;
+    public List<MemoryCard> getMemoryCards() {
+        return memoryCards;
     }
 
-    public CPU() {
-
+    public void setMemoryCards(List<MemoryCard> memoryCards) {
+        this.memoryCards = memoryCards;
     }
 
-    public Computer getComputer() {
-        return computer;
+    public void setCpu(CPU cpu) {
+        this.cpu = cpu;
     }
 
-    public void setComputer(Computer computer) {
-        this.computer = computer;
+    public List<User> getUsers() {
+        return users;
     }
 
-    public CPU(Integer id, String status, String label, String description, int price, Date createdAt, Date modifiedAt) {
-        this.id = id;
-        this.status = status;
-        this.label = label;
-        this.description = description;
-        this.price = price;
-        this.createdAt = createdAt;
-        this.modifiedAt = modifiedAt;
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
+
 
     public Integer getId() {
         return id;
@@ -104,14 +108,6 @@ public class CPU {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
     }
 
     public Date getCreatedAt() {

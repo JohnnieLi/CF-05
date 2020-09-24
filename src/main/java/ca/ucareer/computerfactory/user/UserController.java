@@ -37,6 +37,7 @@ public class UserController {
         try {
             String username = jwt.verifyLoginToken(token);
             User foundUser = userService.findUser(username);
+            foundUser.getComputers();
             ResponseBody responseBody = new ResponseBody(foundUser, "", null);
             return ResponseEntity.ok(responseBody);
         }catch (Exception e){

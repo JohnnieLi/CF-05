@@ -1,18 +1,20 @@
-package ca.ucareer.computerfactory.cpu;
+package ca.ucareer.computerfactory.memory_card;
 
 import ca.ucareer.computerfactory.computer.Computer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import ca.ucareer.computerfactory.user.User;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.ManyToAny;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 
-
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
-@Table(name="CPUs")
-public class CPU {
+@Table(name = "memory_cards")
+public class MemoryCard {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,10 +27,8 @@ public class CPU {
 
     private String description;
 
-    private int price = 0;
 
-    @OneToOne(mappedBy = "cpu")
-    @JsonIgnore
+    @ManyToOne()
     private Computer computer;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -42,37 +42,16 @@ public class CPU {
     @UpdateTimestamp
     private Date modifiedAt;
 
-    private String band;
+    MemoryCard(){}
 
-    public String getBand() {
-        return band;
-    }
 
-    public void setBand(String band) {
-        this.band = band;
-    }
-
-    public CPU() {
-
-    }
-
-    public Computer getComputer() {
-        return computer;
-    }
-
-    public void setComputer(Computer computer) {
-        this.computer = computer;
-    }
-
-    public CPU(Integer id, String status, String label, String description, int price, Date createdAt, Date modifiedAt) {
-        this.id = id;
-        this.status = status;
-        this.label = label;
-        this.description = description;
-        this.price = price;
-        this.createdAt = createdAt;
-        this.modifiedAt = modifiedAt;
-    }
+//    public Computer getComputer() {
+//        return computer;
+//    }
+//
+//    public void setComputer(Computer computer) {
+//        this.computer = computer;
+//    }
 
     public Integer getId() {
         return id;
@@ -104,14 +83,6 @@ public class CPU {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
     }
 
     public Date getCreatedAt() {

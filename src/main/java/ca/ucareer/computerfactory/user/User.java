@@ -1,11 +1,14 @@
 package ca.ucareer.computerfactory.user;
 
+import ca.ucareer.computerfactory.computer.Computer;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class User {
@@ -24,6 +27,10 @@ public class User {
 
     private String status;
 
+
+    @ManyToMany(mappedBy = "users")
+    private List<Computer> computers = new ArrayList<>();
+
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
     @CreationTimestamp
@@ -36,6 +43,18 @@ public class User {
     private Date modifiedAt;
 
     public User() {
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public List<Computer> getComputers() {
+        return computers;
+    }
+
+    public void setComputers(List<Computer> computers) {
+        this.computers = computers;
     }
 
 

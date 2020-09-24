@@ -1,6 +1,7 @@
 package ca.ucareer.computerfactory.cpu;
 
 import ca.ucareer.computerfactory.ResponseBody;
+import ca.ucareer.computerfactory.computer.Computer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/v1")
-public class CpuController {
+public class CPUController {
 
 
     @Autowired
@@ -26,6 +27,7 @@ public class CpuController {
     @PutMapping("/cpus/{id}")
     public ResponseEntity<ResponseBody> update(@PathVariable int id, @RequestBody CPU cpuBody) {
         CPU updatedCpu = cpuService.update(id, cpuBody);
+
         if (updatedCpu != null) {
             ResponseBody responseBody = new ResponseBody(updatedCpu, "update ok", null);
             return ResponseEntity.ok(responseBody);
@@ -40,6 +42,7 @@ public class CpuController {
     @GetMapping("/cpus/{id}")
     public ResponseEntity<ResponseBody> retrieve(@PathVariable int id) {
         CPU foundOne = cpuService.retrieve(id);
+        Computer computer = foundOne.getComputer();
         ResponseBody responseBody = new ResponseBody(foundOne, "", null);
         return ResponseEntity.ok(responseBody);
     }
