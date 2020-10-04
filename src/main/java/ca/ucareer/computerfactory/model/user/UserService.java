@@ -16,13 +16,20 @@ public class UserService {
     @Autowired
     JWT jwt;
 
-    public User createUser(User userBody){
-        User savingUser = new User();
-        savingUser.setUsername(userBody.getUsername());
-        savingUser.setPassword(userBody.getPassword());
-        savingUser.setStatus("registered");
+    public User createUser (User userBody)throws Exception{
+        System.out.println(userBody.getUsername());
+        if(!userRepository.findUserByUsername(userBody.getUsername()).isPresent()){
+            User savingUser = new User();
+            savingUser.setUsername(userBody.getUsername());
+            savingUser.setPassword(userBody.getPassword());
+            savingUser.setStatus("registered");
 
-        return userRepository.save(savingUser);
+            return userRepository.save(savingUser);
+        }
+        else{
+            throw new Exception("the username already existed");
+        }
+
     }
 
     public List<User> listUser(){

@@ -22,10 +22,17 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<ResponseBody> createUser(@RequestBody User userBody){
-        User newUser = userService.createUser(userBody);
-        ResponseBody<User> responseBody = new ResponseBody(newUser
-                , "create successful", null);
-        return ResponseEntity.ok(responseBody);
+        try{
+            User newUser = userService.createUser(userBody);
+            ResponseBody<User> responseBody = new ResponseBody(newUser
+                    , "create successful", null);
+            return ResponseEntity.ok(responseBody);
+        }
+        catch (Exception e){
+            ResponseBody responseBody =
+                    new ResponseBody(null, e.getMessage(), e);
+            return ResponseEntity.ok(responseBody);
+        }
     }
 
     @PostMapping("/login")
@@ -38,7 +45,7 @@ public class UserController {
             return ResponseEntity.ok(responseBody);
         }
         catch(Exception exception){
-            ResponseBody responseBody = new ResponseBody("",
+            ResponseBody responseBody = new ResponseBody(null,
                     exception.getMessage(), exception);
             return ResponseEntity.ok(responseBody);
         }
