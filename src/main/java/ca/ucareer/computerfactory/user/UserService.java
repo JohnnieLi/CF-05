@@ -1,6 +1,4 @@
 package ca.ucareer.computerfactory.user;
-
-
 import ca.ucareer.computerfactory.core.JWT;
 import ca.ucareer.computerfactory.cpu.CPU;
 import org.springframework.beans.factory.annotation.Autowired;
